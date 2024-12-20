@@ -1,16 +1,16 @@
-"C:\Program Files\JetBrains\CLion 2023.3.4\bin\cmake\win\x64\bin\cmake.exe" -DCMAKE_BUILD_TYPE=Debug "-DCMAKE_MAKE_PROGRAM=C:/Program Files/JetBrains/CLion 2023.3.4/bin/ninja/win/x64/ninja.exe" -G Ninja -S C:\Users\pyuku\CLionProjects\LinAlg-W24-Project -B C:\Users\pyuku\CLionProjects\LinAlg-W24-Project\cmake-build-debug
--- The C compiler identification is GNU 14.2.0
--- The CXX compiler identification is GNU 14.2.0
+/Applications/CLion.app/Contents/bin/cmake/mac/aarch64/bin/cmake -DCMAKE_BUILD_TYPE=Debug -G "Unix Makefiles" -S /Users/yumep/CLionProjects/LinAlg_W24_Project -B /Users/yumep/CLionProjects/LinAlg_W24_Project/cmake-build-debug
+-- The C compiler identification is AppleClang 16.0.0.16000026
+-- The CXX compiler identification is AppleClang 16.0.0.16000026
 -- Detecting C compiler ABI info
 -- Detecting C compiler ABI info - done
--- Check for working C compiler: C:/Users/pyuku/mingw64/bin/gcc.exe - skipped
+-- Check for working C compiler: /Library/Developer/CommandLineTools/usr/bin/cc - skipped
 -- Detecting C compile features
 -- Detecting C compile features - done
 -- Detecting CXX compiler ABI info
 -- Detecting CXX compiler ABI info - done
--- Check for working CXX compiler: C:/Users/pyuku/mingw64/bin/c++.exe - skipped
+-- Check for working CXX compiler: /Library/Developer/CommandLineTools/usr/bin/c++ - skipped
 -- Detecting CXX compile features
 -- Detecting CXX compile features - done
--- Configuring done (1.3s)
+-- Configuring done (2.2s)
 -- Generating done (0.0s)
--- Build files have been written to: C:/Users/pyuku/CLionProjects/LinAlg-W24-Project/cmake-build-debug
+-- Build files have been written to: /Users/yumep/CLionProjects/LinAlg_W24_Project/cmake-build-debug

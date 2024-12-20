@@ -1,3 +1,3 @@
-C:/Users/pyuku/CLionProjects/LinAlg-W24-Project/cmake-build-debug/CMakeFiles/LinAlg_W24_Project.dir
-C:/Users/pyuku/CLionProjects/LinAlg-W24-Project/cmake-build-debug/CMakeFiles/edit_cache.dir
-C:/Users/pyuku/CLionProjects/LinAlg-W24-Project/cmake-build-debug/CMakeFiles/rebuild_cache.dir
+/Users/yumep/CLionProjects/LinAlg_W24_Project/cmake-build-debug/CMakeFiles/LinAlg_W24_Project.dir
+/Users/yumep/CLionProjects/LinAlg_W24_Project/cmake-build-debug/CMakeFiles/edit_cache.dir
+/Users/yumep/CLionProjects/LinAlg_W24_Project/cmake-build-debug/CMakeFiles/rebuild_cache.dir
