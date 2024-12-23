@@ -18,43 +18,69 @@
 
 using namespace std;
 
-vector<float> Vec_Add(vector<float> v1, vector<float> v2);
-vector<float> Vec_Sub(vector<float> v1, vector<float> v2);
-float Dot_Product(vector<float> v1, vector<float> v2);
-vector<float> Scalar_Vec(vector<float> v1, float scalar);
-
+vector<float> Vec_Add(vector<float> v1, vector<float> v2);      // Vector Addition
+vector<float> Vec_Sub(vector<float> v1, vector<float> v2);      // Vector Subtraction
+float Dot_Product(vector<float> v1, vector<float> v2);          // Dot Product
+vector<float> Scalar_Vec(vector<float> v1, float scalar);       // Scaling a vector
+vector<vector<float>> Mat_Add(vector<vector<float>> A, vector<vector<float>> B);          // Matrix Addition
+vector<vector<float>> Mat_Sub(vector<vector<float>> A, vector<vector<float>> B);            // Matrix subtraction
 
 int main() {
 
-    vector<float> v1 = {1,2,3,4,5,6,7,8,9};
-    vector<float> v2 = {1,2,3,4,5,6,7,8,9};
+
+    vector<vector<float>> A = { {1,4,5},            // matrix A
+                                {2,5,7},
+                                {3,6,9}};
+
+    vector<vector<float>> B = { {1,2,3},            // matrix B
+                                {2,3,1},
+                                {3,1,2}};
+
+    vector<vector<float>> I = { {0,0,0},            // Identity Matrix
+                                {0,0,0},
+                                {0,0,0}};
+
+
+
+    vector<float> v1 = {1,2,3,4,5,6,7,8,9};                // defining vector v1
+    vector<float> v2 = {1,2,3,4,5,6,7,8,9};                // defining vector v2
+    vector<float> O = {0,0,0,0,0,0,0,0,0};                 // zero vector
+
     float scalar = 10;
     float dot_prod_sum = 0;
 
     cout << "adding vector 1 and vector 2 :" << endl;
     vector<float> v3 = Vec_Add(v1, v2);             // adding two vectors of same sizes
-
     cout << endl;
 
     cout << "subtracting vector 1 and vector 2 :" << endl;
     vector<float> v4 = Vec_Sub(v1, v2);            // subtracting two vectors
-
     cout << endl;
 
     cout << "the dot product of vectors 1 and vectors 2:" << endl;
     dot_prod_sum = Dot_Product(v1, v2);               // performing the dot product
-
     cout << endl;
 
     cout << "scalar product of vectors 1 and a single scalar:" << endl;
     vector<float> v5 =  Scalar_Vec(v1, scalar);             // performing scalar multiplication on vector 1
+    cout << endl;
+
+    cout << "adding Matrix A and Matrix B:" << endl;
+    vector<vector<float>> C = Mat_Add(A, B);            // performing the addition of matrix A and B
+    cout << endl;
+
+    cout << "subtracting Matrix A and Matrix B:" << endl;
+    vector<vector<float>> D = Mat_Sub(A, B);            // performing the subtraction of matrix A and B
+    cout << endl;
+
+
 
     return 0;
 }
 
 // function to add two vectors
 vector<float> Vec_Add(vector<float> v1, vector<float> v2) {
-    if (v1.size() != v2.size()) {
+    if (v1.size() != v2.size() || v2.size() != v1.size()) {
         cerr << "Vector_Add Error" << endl;                  // checking to make sure vectors are same size
     }
     vector<float> total;
@@ -73,7 +99,7 @@ vector<float> Vec_Add(vector<float> v1, vector<float> v2) {
 
 // function for the subtraction of two vectors
 vector<float> Vec_Sub(vector<float> v1, vector<float> v2) {
-    if (v1.size() != v2.size()) {
+    if (v1.size() != v2.size() || v2.size() != v1.size()) {
         cerr << "Vector_Add Error" << endl;                  // checking to make sure vectors are same size
     }
     vector<float> total;
@@ -92,7 +118,7 @@ vector<float> Vec_Sub(vector<float> v1, vector<float> v2) {
 
 //function that performs the dot product of two vectors
 float Dot_Product(vector<float> v1, vector<float> v2) {
-    if (v1.size() != v2.size()) {
+    if (v1.size() != v2.size() || v2.size() != v1.size()) {
         cerr << "Dot_Product Error" << endl;                    // checking to make sure that the sizes of both vectors
     }                                                           // match
 
@@ -120,7 +146,66 @@ vector<float> Scalar_Vec(vector<float> v1, float scalar) {
     for(auto val: total) {                          // printing the scaled vector
         cout << val << " ";
     }
+    cout << endl;
+
+    return total;
 }
+
+
+vector<vector<float>> Mat_Add(vector<vector<float>> A, vector<vector<float>> B) {
+    if (A.size() != B.size() || A[0].size() != B[0].size()) {           // checking for same dimension matrices
+        cerr << "Matrix addition not possible" << endl;
+        return {};
+    }
+
+    vector<vector<float>> C(A.size(), vector<float>(A[0].size()));          // initializing C
+                                                                                    // to be of the same size
+
+    for (auto i = 0; i < A.size(); i++) {                                    // adding each component iteratively
+        for (auto j = 0; j < A[i].size(); j++) {
+            C[i][j] = A[i][j] + B[i][j];                          // this part is doing the addition
+        }
+    }
+
+    for (auto i = 0; i < C.size(); i++) {                      // for printing out the C matrix
+        for (auto j = 0; j < C[i].size(); j++) {
+            cout << C[i][j] << " ";
+        }
+        cout << endl;
+    }
+
+    return C;
+}
+
+vector<vector<float>> Mat_Sub(vector<vector<float>> A, vector<vector<float>> B) {
+    if (A.size() != B.size() || A[0].size() != B[0].size()) {           // checking for same dimension matrices
+        cerr << "Matrix addition not possible" << endl;
+        return {};
+    }
+
+    vector<vector<float>> C(A.size(), vector<float>(A[0].size()));          // initializing C
+                                                                                    // to be of the same size
+
+    for (auto i = 0; i < A.size(); i++) {                                    // subtracting each component iteratively
+        for (auto j = 0; j < A[i].size(); j++) {
+            C[i][j] = A[i][j] - B[i][j];                          // this part is doing the subtraction
+        }
+    }
+
+    for (auto i = 0; i < C.size(); i++) {                      // for printing out the C matrix
+        for (auto j = 0; j < C[i].size(); j++) {
+            cout << C[i][j] << " ";
+        }
+        cout << endl;
+    }
+
+    return C;
+}
+
+
+
+
+
 
 
 
