@@ -24,6 +24,7 @@ float Dot_Product(vector<float> v1, vector<float> v2);          // Dot Product
 vector<float> Scalar_Vec(vector<float> v1, float scalar);       // Scaling a vector
 vector<vector<float>> Mat_Add(vector<vector<float>> A, vector<vector<float>> B);          // Matrix Addition
 vector<vector<float>> Mat_Sub(vector<vector<float>> A, vector<vector<float>> B);            // Matrix subtraction
+vector<vector<float>> Mat_Multi(vector<vector<float>> A, vector<vector<float>> B);          // Matrix Multiplication
 
 int main() {
 
@@ -39,7 +40,6 @@ int main() {
     vector<vector<float>> I = { {0,0,0},            // Identity Matrix
                                 {0,0,0},
                                 {0,0,0}};
-
 
 
     vector<float> v1 = {1,2,3,4,5,6,7,8,9};                // defining vector v1
@@ -65,6 +65,8 @@ int main() {
     vector<float> v5 =  Scalar_Vec(v1, scalar);             // performing scalar multiplication on vector 1
     cout << endl;
 
+    ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
     cout << "adding Matrix A and Matrix B:" << endl;
     vector<vector<float>> C = Mat_Add(A, B);            // performing the addition of matrix A and B
     cout << endl;
@@ -73,10 +75,16 @@ int main() {
     vector<vector<float>> D = Mat_Sub(A, B);            // performing the subtraction of matrix A and B
     cout << endl;
 
+    cout << "the product of Matrix A and Matrix B:" << endl;
+    vector<vector<float>> E = Mat_Multi(A, B);
+    cout << endl;
+
 
 
     return 0;
 }
+
+///////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
 // function to add two vectors
 vector<float> Vec_Add(vector<float> v1, vector<float> v2) {
@@ -151,7 +159,9 @@ vector<float> Scalar_Vec(vector<float> v1, float scalar) {
     return total;
 }
 
+///////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
+// function to perform Matrix addition
 vector<vector<float>> Mat_Add(vector<vector<float>> A, vector<vector<float>> B) {
     if (A.size() != B.size() || A[0].size() != B[0].size()) {           // checking for same dimension matrices
         cerr << "Matrix addition not possible" << endl;
@@ -162,7 +172,7 @@ vector<vector<float>> Mat_Add(vector<vector<float>> A, vector<vector<float>> B) 
                                                                                     // to be of the same size
 
     for (auto i = 0; i < A.size(); i++) {                                    // adding each component iteratively
-        for (auto j = 0; j < A[i].size(); j++) {
+        for (auto j = 0; j < A[i].size(); j++) {                            // iterating through cols/rows of A
             C[i][j] = A[i][j] + B[i][j];                          // this part is doing the addition
         }
     }
@@ -177,6 +187,7 @@ vector<vector<float>> Mat_Add(vector<vector<float>> A, vector<vector<float>> B) 
     return C;
 }
 
+// function to perform Matrix subtraction
 vector<vector<float>> Mat_Sub(vector<vector<float>> A, vector<vector<float>> B) {
     if (A.size() != B.size() || A[0].size() != B[0].size()) {           // checking for same dimension matrices
         cerr << "Matrix addition not possible" << endl;
@@ -187,7 +198,7 @@ vector<vector<float>> Mat_Sub(vector<vector<float>> A, vector<vector<float>> B) 
                                                                                     // to be of the same size
 
     for (auto i = 0; i < A.size(); i++) {                                    // subtracting each component iteratively
-        for (auto j = 0; j < A[i].size(); j++) {
+        for (auto j = 0; j < A[i].size(); j++) {                            // iterating through cols/rows of A
             C[i][j] = A[i][j] - B[i][j];                          // this part is doing the subtraction
         }
     }
@@ -202,7 +213,34 @@ vector<vector<float>> Mat_Sub(vector<vector<float>> A, vector<vector<float>> B) 
     return C;
 }
 
+// function to perform Matrix Multiplication the very basic text book O(n^3) way
+vector<vector<float>> Mat_Multi(vector<vector<float>> A, vector<vector<float>> B) {
+    if (A[0].size() != B.size()) {                                                 // ensuring that the columns of A
+        cerr << "Matrix multiplication not possible" << endl;                      // Match the amount of rows in B
+        return {};
+    }
 
+    vector<vector<float>> C(A.size(), vector<float>(B[0].size()));   // initializing C to be a matrix
+                                                                        // with the rows of A and the columns of B
+
+    for (auto i = 0; i < A.size(); i++) {                              // iterating through the rows of A
+        for (auto j = 0; j < B[0].size(); j++) {                      // iterating through the col's of B
+            for (auto k = 0; k < B[i].size(); k++) {                 // performing "dot products" between A row and B col
+                C[i][j] += A[i][k] * B[k][j];                       // performing the actual calculations here
+            }
+        }
+    }
+
+                                                // for printing out the C matrix
+    for (auto i = 0; i < C.size(); i++) {
+        for (auto j = 0; j < C[i].size(); j++) {
+            cout << C[i][j] << " ";
+        }
+        cout << endl;
+    }
+
+    return C;
+}
 
 
 
