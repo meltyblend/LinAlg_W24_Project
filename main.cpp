@@ -269,7 +269,7 @@ bool REF(vector<vector<float>> A) {
     bool isZeroRow = false;
 
     if (row == 0 || col == 0) {
-        cout << "matrix is empty" << endl;              // by default a matrix of 0 dimension is an empty matrix
+        cout << "the matrix is empty" << endl;              // by default a matrix of 0 dimension is an empty matrix
         return true;
     }
 
@@ -289,13 +289,13 @@ bool REF(vector<vector<float>> A) {
             for (int k = i + 1; k < row; k++) {
                 for (int m = 0; m < col; m++) {
                     if (A[k][m] != 0) {
-                        cout << "matrix is not in row echelon form" << endl;
+                        cout << "your matrix is not in row echelon form" << endl;
                         return false;
                     }
                 }
             }
             // after checking if the value at A[k][m] is == 0  we can determine that the all rows are zero
-            cout << "matrix is in row echelon form" << endl;
+            cout << "your matrix is in row echelon form" << endl;
             return true;
 
         } else {
@@ -311,14 +311,14 @@ bool REF(vector<vector<float>> A) {
 
             // our pivot index must be >=0
             if (pivotIndex <= previousPivotIndex) {
-                cout << "matrix is not in row echelon form" << endl;
+                cout << "your matrix is not in row echelon form" << endl;
                 return false;                               // new pivot must be to the right of the previous pivot
             }
 
             // here we check if all elements below the current pivot are == 0
             for (int below = i + 1; below < row; below++) {
                 if (A[below][pivotIndex] != 0) {
-                    cout << "matrix is not in row echelon form" << endl;
+                    cout << "your matrix is not in row echelon form" << endl;
                     return false;
                 }
             }
@@ -328,7 +328,7 @@ bool REF(vector<vector<float>> A) {
         }
     }
 
-    cout << "matrix is in row echelon form" << endl;
+    cout << "your matrix is in row echelon form" << endl;
     return true;                                    // the matrix is in REF
 }
 
