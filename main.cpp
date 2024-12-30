@@ -25,6 +25,7 @@ vector<float> Scalar_Vec(vector<float> v1, float scalar);       // Scaling a vec
 vector<vector<float>> Mat_Add(vector<vector<float>> A, vector<vector<float>> B);          // Matrix Addition
 vector<vector<float>> Mat_Sub(vector<vector<float>> A, vector<vector<float>> B);            // Matrix subtraction
 vector<vector<float>> Mat_Multi(vector<vector<float>> A, vector<vector<float>> B);          // Matrix Multiplication
+bool REF(vector<vector<float>> A);                                          // checks if matrix is of Row Echelon Form
 
 int main() {
 
@@ -37,14 +38,19 @@ int main() {
                                 {2,3,1},
                                 {3,1,2}};
 
-    vector<vector<float>> I = { {0,0,0},            // Identity Matrix
-                                {0,0,0},
-                                {0,0,0}};
+    vector<vector<float>> I = { {1,0,0},            // Identity Matrix
+                                {0,1,0},
+                                {0,0,1}};
+
+    vector<vector<float>> zero_matrix = {{0,0,0},           // zero Matrix
+                                        {0,0,0},
+                                        {0,0,0}};
+
 
 
     vector<float> v1 = {1,2,3,4,5,6,7,8,9};                // defining vector v1
     vector<float> v2 = {1,2,3,4,5,6,7,8,9};                // defining vector v2
-    vector<float> O = {0,0,0,0,0,0,0,0,0};                 // zero vector
+    vector<float> zero_vector = {0,0,0,0,0,0,0,0,0};                 // zero vector
 
     float scalar = 10;
     float dot_prod_sum = 0;
@@ -77,6 +83,10 @@ int main() {
 
     cout << "the product of Matrix A and Matrix B:" << endl;
     vector<vector<float>> E = Mat_Multi(A, B);
+    cout << endl;
+
+    cout << "Is your matrix in row echelon form?:" << endl;
+    bool is_row_echelon = REF(I);
     cout << endl;
 
 
@@ -242,10 +252,77 @@ vector<vector<float>> Mat_Multi(vector<vector<float>> A, vector<vector<float>> B
     return C;
 }
 
+// function for determining if a matrix is in Row Echelon Form
+bool REF(vector<vector<float>> A) {
+    // for clarity purposes I initialized what it means to be a row and col in this scope
+    int row = A.size();
+    int col = A[0].size();
+    int previousPivotIndex = -1;      // allows uis to keep track of our pivots in the previous nonzero rows
+    bool isZeroRow = false;
 
+    if (row == 0 || col == 0) {
+        cout << "matrix is empty" << endl;              // by default a matrix of 0 dimension is an empty matrix
+        return true;
+    }
 
+    for (int i = 0; i < row; i++) {               // going through each row to check if the row is entirely zero
+        bool allZeroRow = true;                   // if the row is zero set allZeroRow to true
+        for (int j = 0; j < col; j++) {           // iterating through the columns
+            if (A[i][j] != 0) {                   // comparing the value at A[i][j] if it is != 0 then allZeroRow = false
+                allZeroRow = false;
+                break;
+            }
+        }
 
+        if (allZeroRow) {                         // if allZeroRow is set to true then isZeroRow must also be true
+            isZeroRow = true;
 
+            // now we will check the following rows if we find a nonzero element in that row REF = false
+            for (int k = i + 1; k < row; k++) {
+                for (int m = 0; m < col; m++) {
+                    if (A[k][m] != 0) {
+                        cout << "matrix is not in row echelon form" << endl;
+                        return false;
+                    }
+                }
+            }
+            // after checking if the value at A[k][m] is == 0  we can determine that the all rows are zero
+            cout << "matrix is in row echelon form" << endl;
+            return true;
+
+        } else {
+
+            // here we are finding the pivot or the leading non-zero coefficient
+            int pivotIndex = -1;
+            for (int j = 0; j < col; j++) {
+                if (A[i][j] != 0) {
+                    pivotIndex = j;
+                    break;
+                }
+            }
+
+            // our pivot index must be >=0
+            if (pivotIndex <= previousPivotIndex) {
+                cout << "matrix is not in row echelon form" << endl;
+                return false;                               // new pivot must be to the right of the previous pivot
+            }
+
+            // here we check if all elements below the current pivot are == 0
+            for (int below = i + 1; below < row; below++) {
+                if (A[below][pivotIndex] != 0) {
+                    cout << "matrix is not in row echelon form" << endl;
+                    return false;
+                }
+            }
+
+            previousPivotIndex = pivotIndex;
+
+        }
+    }
+
+    cout << "matrix is in row echelon form" << endl;
+    return true;                                    // the matrix is in REF
+}
 
 
 
