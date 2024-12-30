@@ -38,6 +38,10 @@ int main() {
                                 {2,3,1},
                                 {3,1,2}};
 
+    vector<vector<float>> A_1 = { {1,4,5},            // matrix A
+                                {0,0,0},
+                                {3,6,9}};
+
     vector<vector<float>> I = { {1,0,0},            // Identity Matrix
                                 {0,1,0},
                                 {0,0,1}};
@@ -86,7 +90,11 @@ int main() {
     cout << endl;
 
     cout << "Is your matrix in row echelon form?:" << endl;
+    // naming convention is poor here, but we are doing this to test different matrices to make sure our function
+    // works properly
     bool is_row_echelon = REF(I);
+    bool is_not_row_echelon = REF(A);
+    bool is_not_row_echelon_1 = REF(A_1);
     cout << endl;
 
 
