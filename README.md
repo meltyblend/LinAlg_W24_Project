@@ -2,7 +2,9 @@ This is a linear algebra project that I am doing (or did) during the winter of 2
 started on December 5th, 2024
 
 
-Currently, I have added the following functions. (there is no real specific order to which I am adding
+Currently, I have added the following functions. 
+
+(there is no real specific order to which I am adding
 each function as I kinda shoved in a row echelon form and row reduced echelon form checker in there just today 
 as I believe it would be beneficial for me when I do decide to add a function for Gaussian-Jordan elimination
 and to find the inverse of a matrix)
