@@ -57,8 +57,6 @@ int main() {
     vector<float> zero_vector = {0,0,0,0,0,0,0,0,0};                 // zero vector
 
     float scalar = 10;
-    float dot_prod_sum = 0;
-
     cout << "adding vector 1 and vector 2 :" << endl;
     vector<float> v3 = Vec_Add(v1, v2);             // adding two vectors of same sizes
     cout << endl;
@@ -68,7 +66,7 @@ int main() {
     cout << endl;
 
     cout << "the dot product of vectors 1 and vectors 2:" << endl;
-    dot_prod_sum = Dot_Product(v1, v2);               // performing the dot product
+    Dot_Product(v1, v2);               // performing the dot product
     cout << endl;
 
     cout << "scalar product of vectors 1 and a single scalar:" << endl;
@@ -92,9 +90,9 @@ int main() {
     cout << "Is your matrix in row echelon form?:" << endl;
     // naming convention is poor here, but we are doing this to test different matrices to make sure our function
     // works properly
-    bool is_row_echelon = REF(I);
-    bool is_not_row_echelon = REF(A);
-    bool is_not_row_echelon_1 = REF(A_1);
+    REF(I);
+    REF(A);
+    REF(A_1);
     cout << endl;
 
 
@@ -110,7 +108,7 @@ vector<float> Vec_Add(vector<float> v1, vector<float> v2) {
         cerr << "Vector_Add Error" << endl;                  // checking to make sure vectors are same size
     }
     vector<float> total;
-    for (auto i = 0; i < v1.size(); i++) {                  // summing vectors
+    for (size_t i = 0; i < v1.size(); i++) {                  // summing vectors
         total.push_back(v1[i] + v2[i]);
     }
 
@@ -129,7 +127,7 @@ vector<float> Vec_Sub(vector<float> v1, vector<float> v2) {
         cerr << "Vector_Add Error" << endl;                  // checking to make sure vectors are same size
     }
     vector<float> total;
-    for (auto i = 0; i < v1.size(); i++) {
+    for (size_t i = 0; i < v1.size(); i++) {
         total.push_back(v1[i] - v2[i]);                      // subtracting vectors
     }
 
@@ -151,7 +149,7 @@ float Dot_Product(vector<float> v1, vector<float> v2) {
     float total = 0;                                             // initializing sum to 0
     float multi = 0;                                             // initializing the multiplication to 0
 
-    for (auto i = 0; i < v1.size(); i++) {                      // for loop that calculates the dot product of the
+    for (size_t i = 0; i < v1.size(); i++) {                      // for loop that calculates the dot product of the
         multi = v1[i] * v2[i];                                  // two vectors
         total = total + multi;
     }
@@ -165,7 +163,7 @@ float Dot_Product(vector<float> v1, vector<float> v2) {
 vector<float> Scalar_Vec(vector<float> v1, float scalar) {
     vector<float> total;
 
-    for (auto i = 0; i < v1.size(); i++) {
+    for (size_t i = 0; i < v1.size(); i++) {
         total.push_back(v1[i] * scalar);                // to perform scalar multiplication on a vector
     }
 
@@ -189,14 +187,14 @@ vector<vector<float>> Mat_Add(vector<vector<float>> A, vector<vector<float>> B) 
     vector<vector<float>> C(A.size(), vector<float>(A[0].size()));          // initializing C
                                                                                     // to be of the same size
 
-    for (auto i = 0; i < A.size(); i++) {                                    // adding each component iteratively
-        for (auto j = 0; j < A[i].size(); j++) {                            // iterating through cols/rows of A
+    for (size_t i = 0; i < A.size(); i++) {                                    // adding each component iteratively
+        for (size_t j = 0; j < A[i].size(); j++) {                            // iterating through cols/rows of A
             C[i][j] = A[i][j] + B[i][j];                          // this part is doing the addition
         }
     }
 
-    for (auto i = 0; i < C.size(); i++) {                      // for printing out the C matrix
-        for (auto j = 0; j < C[i].size(); j++) {
+    for (size_t i = 0; i < C.size(); i++) {                      // for printing out the C matrix
+        for (size_t j = 0; j < C[i].size(); j++) {
             cout << C[i][j] << " ";
         }
         cout << endl;
@@ -215,14 +213,14 @@ vector<vector<float>> Mat_Sub(vector<vector<float>> A, vector<vector<float>> B) 
     vector<vector<float>> C(A.size(), vector<float>(A[0].size()));          // initializing C
                                                                                     // to be of the same size
 
-    for (auto i = 0; i < A.size(); i++) {                                    // subtracting each component iteratively
-        for (auto j = 0; j < A[i].size(); j++) {                            // iterating through cols/rows of A
+    for (size_t i = 0; i < A.size(); i++) {                                    // subtracting each component iteratively
+        for (size_t j = 0; j < A[i].size(); j++) {                            // iterating through cols/rows of A
             C[i][j] = A[i][j] - B[i][j];                          // this part is doing the subtraction
         }
     }
 
-    for (auto i = 0; i < C.size(); i++) {                      // for printing out the C matrix
-        for (auto j = 0; j < C[i].size(); j++) {
+    for (size_t i = 0; i < C.size(); i++) {                      // for printing out the C matrix
+        for (size_t j = 0; j < C[i].size(); j++) {
             cout << C[i][j] << " ";
         }
         cout << endl;
@@ -241,17 +239,17 @@ vector<vector<float>> Mat_Multi(vector<vector<float>> A, vector<vector<float>> B
     vector<vector<float>> C(A.size(), vector<float>(B[0].size()));   // initializing C to be a matrix
                                                                         // with the rows of A and the columns of B
 
-    for (auto i = 0; i < A.size(); i++) {                              // iterating through the rows of A
-        for (auto j = 0; j < B[0].size(); j++) {                      // iterating through the col's of B
-            for (auto k = 0; k < B[i].size(); k++) {                 // performing "dot products" between A row and B col
+    for (size_t i = 0; i < A.size(); i++) {                              // iterating through the rows of A
+        for (size_t j = 0; j < B[0].size(); j++) {                      // iterating through the col's of B
+            for (size_t k = 0; k < B[i].size(); k++) {                 // performing "dot products" between A row and B col
                 C[i][j] += A[i][k] * B[k][j];                       // performing the actual calculations here
             }
         }
     }
 
                                                 // for printing out the C matrix
-    for (auto i = 0; i < C.size(); i++) {
-        for (auto j = 0; j < C[i].size(); j++) {
+    for (size_t i = 0; i < C.size(); i++) {
+        for (size_t j = 0; j < C[i].size(); j++) {
             cout << C[i][j] << " ";
         }
         cout << endl;
@@ -266,7 +264,6 @@ bool REF(vector<vector<float>> A) {
     int row = A.size();
     int col = A[0].size();
     int previousPivotIndex = -1;      // allows uis to keep track of our pivots in the previous nonzero rows
-    bool isZeroRow = false;
 
     if (row == 0 || col == 0) {
         cout << "the matrix is empty" << endl;              // by default a matrix of 0 dimension is an empty matrix
@@ -282,9 +279,7 @@ bool REF(vector<vector<float>> A) {
             }
         }
 
-        if (allZeroRow) {                         // if allZeroRow is set to true then isZeroRow must also be true
-            isZeroRow = true;
-
+        if (allZeroRow) {
             // now we will check the following rows if we find a nonzero element in that row REF = false
             for (int k = i + 1; k < row; k++) {
                 for (int m = 0; m < col; m++) {
@@ -331,7 +326,3 @@ bool REF(vector<vector<float>> A) {
     cout << "your matrix is in row echelon form" << endl;
     return true;                                    // the matrix is in REF
 }
-
-
-
-
